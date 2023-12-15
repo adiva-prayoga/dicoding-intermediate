@@ -22,13 +22,9 @@ body {
   overflow: hidden;
 }
 
-.scrollable-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  transition: all 0.3s;
-  z-index: 1000;
+a {
+  text-decoration: none;
+  color: white;
 }
 
 h1 {
@@ -48,17 +44,18 @@ p {
 
 header {
   padding: 15px 0;
+  margin-bottom: 15px;
   background: #161d2d;
-}
-
-header nav input {
-  width: 350px;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+input {
+  width: 100%;
 }
 
 input,
@@ -108,6 +105,10 @@ textarea:focus {
   margin-bottom: 25px;
 }
 
+.search-section {
+  margin-bottom: 25px;
+}
+
 ul {
   display: flex;
   flex-wrap: wrap;
@@ -128,9 +129,8 @@ ul .empty-notes {
   align-items: center;
 }
 
-.note-list {
+.note-card {
   width: 25%;
-  height: 375px;
   background: #161d2d;
   padding: 20px;
   border-radius: 15px;
@@ -138,26 +138,30 @@ ul .empty-notes {
   border: 5px solid #070e1d;
 }
 
-.note-list .wrap {
+.note-card-height {
+  height: 375px;
+}
+
+.note-card .wrap {
   position: relative;
   width: 100%;
   height: 100%;
   line-height: 25px;
 }
 
-.note-list .wrap h1 {
+.note-card .wrap h1 {
   font-size: 16px;
   margin: 0;
   text-transform: uppercase;
 }
 
-.note-list .wrap .date {
+.note-card .wrap .date {
   font-size: 12px;
   text-transform: uppercase;
   color: #66708c;
 }
 
-.note-list .wrap .body {
+.note-card .wrap .body {
   font-size: 14px;
   text-transform: capitalize;
   margin: 0;
@@ -173,7 +177,7 @@ ul .empty-notes {
   text-overflow: ellipsis;
 }
 
-.note-list .wrap .note-action {
+.note-card .wrap .note-action {
   position: absolute;
   right: 0;
   left: 0;
@@ -224,7 +228,7 @@ button {
     max-width: 100%;
     padding: 0 15px;
   }
-  .note-list {
+  .note-card {
     width: 50%;
   }
 }
@@ -238,7 +242,7 @@ button {
     width: 100%;
   }
 
-  .note-list {
+  .note-card {
     width: 100%;
   }
 }
