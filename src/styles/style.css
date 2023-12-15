@@ -222,6 +222,19 @@ button {
   flex-direction: column;
 }
 
+.not-found-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 70px);
+  text-align: center;
+}
+
+.not-found-section h1 {
+  font-size: 64px;
+}
+
 @media screen and (max-width: 960px) {
   .container {
     width: 100%;
