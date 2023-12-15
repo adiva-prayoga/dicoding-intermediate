@@ -235,6 +235,29 @@ button {
   font-size: 64px;
 }
 
+.detail-page-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail-page-section h1 {
+  font-size: 64px;
+  margin-top: 50px;
+}
+
+.detail-page-section .date {
+  text-transform: uppercase;
+  color: #66708c;
+}
+
+.detail-page-section .body {
+  text-transform: capitalize;
+  margin: 0;
+  margin-top: 25px;
+  line-height: 25px;
+}
+
 @media screen and (max-width: 960px) {
   .container {
     width: 100%;
