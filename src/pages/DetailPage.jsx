@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { useParams } from "react-router-dom";
 
+import NotFoundPage from "./NotFoundPage";
+
 import { getNote } from "../utils/local-data";
 import { showFormattedDate } from "../utils/index";
 
@@ -20,29 +22,14 @@ class DetailPage extends Component {
   }
   render() {
     if (!this.state.note) {
-      return (
-        <section className="detail-page-section">
-          <div className="container">
-            <h1>Detail Page</h1>
-            <p>Halaman tidak ditemukan</p>
-          </div>
-        </section>
-      );
+      return <NotFoundPage />;
     }
     return (
       <section className="detail-page-section">
         <div className="container">
-          {!this.state.note ? (
-            <p>Halaman tidak ditemukan</p>
-          ) : (
-            <>
-              <h1 className="title">{this.state.note.title}</h1>
-              <p className="date">
-                {showFormattedDate(this.state.note.createdAt)}
-              </p>
-              <p className="body">{this.state.note.body}</p>
-            </>
-          )}
+          <h1 className="title">{this.state.note.title}</h1>
+          <p className="date">{showFormattedDate(this.state.note.createdAt)}</p>
+          <p className="body">{this.state.note.body}</p>
         </div>
       </section>
     );
