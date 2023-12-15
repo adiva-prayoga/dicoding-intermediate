@@ -10,7 +10,7 @@ class Navbar extends Component {
             <Link to="/">Adiva Notes</Link>
           </div>
           <div className="archived-link">
-            <Link to="/archived">Archived</Link>
+            <Link to="/archives">Archived</Link>
           </div>
         </nav>
       </header>
