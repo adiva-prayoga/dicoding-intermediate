@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import NoteCard from "./NoteCard";
+
+import { showFormattedDate } from "../utils/index";
+import { Link } from "react-router-dom";
 
 class NoteList extends Component {
   render() {
@@ -12,12 +14,15 @@ class NoteList extends Component {
             <p className="empty-notes">Tidak ada catatan</p>
           ) : (
             notes.map((note) => (
-              <NoteCard
-                uniqueKey={note.id}
-                title={note.title}
-                body={note.body}
-                createdAt={note.createdAt}
-              />
+              <li key={note.id} className="note-card">
+                <div className="wrap">
+                  <h1 className="title">
+                    <Link to={`/notes/${note.id}`}>{note.title}</Link>
+                  </h1>
+                  <p className="date">{showFormattedDate(note.createdAt)}</p>
+                  <p className="body">{note.body}</p>
+                </div>
+              </li>
             ))
           )}
         </ul>
