@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 
 import NotFoundPage from "./NotFoundPage";
 import Button from "../components/Button";
