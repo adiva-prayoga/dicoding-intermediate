@@ -10,17 +10,34 @@ class ArchivedPage extends Component {
     super(props);
 
     this.state = {
+      searchResult: "",
       notes: getArchivedNotes(),
     };
   }
+
+  handleSearch = (searchResult) => {
+    this.setState({
+      searchResult,
+    });
+  };
+
+  filterNotes = (notes, searchResult) => {
+    if (!searchResult) {
+      return notes;
+    } else {
+      return notes.filter((note) =>
+        note.title.toLowerCase().includes(searchResult.toLowerCase())
+      );
+    }
+  };
   render() {
-    const { notes } = this.state;
+    const { notes, searchResult } = this.state;
 
     return (
       <section className="notes-section">
         <div className="container">
-          <SearchBar />
-          <NoteList notes={notes} />
+          <SearchBar handleSearch={this.handleSearch} />
+          <NoteList notes={this.filterNotes(notes, searchResult)} />
         </div>
       </section>
     );
