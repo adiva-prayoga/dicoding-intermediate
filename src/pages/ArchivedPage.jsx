@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NoteList from "../components/NoteList";
 import SearchBar from "../components/SearchBar";
 
+import PropTypes from "prop-types";
 import { getArchivedNotes } from "../utils/local-data";
 
 class ArchivedPage extends Component {
@@ -36,6 +37,7 @@ class ArchivedPage extends Component {
     return (
       <section className="notes-section">
         <div className="container">
+          <h1 className="title">Archive</h1>
           <SearchBar handleSearch={this.handleSearch} />
           <NoteList notes={this.filterNotes(notes, searchResult)} />
         </div>
@@ -43,5 +45,10 @@ class ArchivedPage extends Component {
     );
   }
 }
+
+ArchivedPage.propTypes = {
+  notes: PropTypes.array,
+  searchResult: PropTypes.string,
+};
 
 export default ArchivedPage;

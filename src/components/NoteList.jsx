@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 
 import { showFormattedDate } from "../utils/index";
+
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 class NoteList extends Component {
@@ -10,7 +12,7 @@ class NoteList extends Component {
     return (
       <section className="note-list-section">
         <ul>
-          {notes.length === 0 ? (
+          {Array.isArray(notes) && notes.length === 0 ? (
             <p className="empty-notes">Tidak ada catatan</p>
           ) : (
             notes.map((note) => (
@@ -30,5 +32,9 @@ class NoteList extends Component {
     );
   }
 }
+
+NoteList.propTypes = {
+  notes: PropTypes.array.isRequired,
+};
 
 export default NoteList;
