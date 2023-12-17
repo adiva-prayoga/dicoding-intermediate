@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 
 import NotFoundPage from "./NotFoundPage";
+import Button from "../components/Button";
 
-import { getNote } from "../utils/local-data";
+import { getNote, deleteNote } from "../utils/local-data";
 import { showFormattedDate } from "../utils/index";
 
 function DetailPageWrapper() {
@@ -18,11 +19,27 @@ class DetailPage extends Component {
 
     this.state = {
       note: getNote(props.id),
+      redirectToHome: false,
     };
   }
+
+  handleDeleteNote = (noteId) => {
+    console.log("test");
+    deleteNote(noteId);
+
+    this.setState({
+      redirectToHome: true,
+    });
+  };
   render() {
+    const { redirectToHome } = this.state;
+
     if (!this.state.note) {
       return <NotFoundPage />;
+    }
+
+    if (redirectToHome) {
+      return <Navigate to="/" />;
     }
     return (
       <section className="detail-page-section">
@@ -30,6 +47,14 @@ class DetailPage extends Component {
           <h1 className="title">{this.state.note.title}</h1>
           <p className="date">{showFormattedDate(this.state.note.createdAt)}</p>
           <p className="body">{this.state.note.body}</p>
+
+          <Button buttonType="archive">Arsipkan</Button>
+          <Button
+            buttonType="delete"
+            onClick={() => this.handleDeleteNote(this.state.note.id)}
+          >
+            Hapus
+          </Button>
         </div>
       </section>
     );
