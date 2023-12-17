@@ -4,7 +4,12 @@ import { useParams, Navigate } from "react-router-dom";
 import NotFoundPage from "./NotFoundPage";
 import Button from "../components/Button";
 
-import { getNote, deleteNote, archiveNote } from "../utils/local-data";
+import {
+  getNote,
+  deleteNote,
+  archiveNote,
+  unarchiveNote,
+} from "../utils/local-data";
 import { showFormattedDate } from "../utils/index";
 
 function DetailPageWrapper() {
@@ -22,6 +27,14 @@ class DetailPage extends Component {
       redirectToHome: false,
     };
   }
+
+  handleUnarchiveNote = (noteId) => {
+    unarchiveNote(noteId);
+
+    this.setState({
+      redirectToHome: true,
+    });
+  };
 
   handleArchiveNote = (noteId) => {
     archiveNote(noteId);
@@ -55,14 +68,24 @@ class DetailPage extends Component {
           <p className="date">{showFormattedDate(this.state.note.createdAt)}</p>
           <p className="body">{this.state.note.body}</p>
 
-          <Button
-            buttonType="archive"
-            onClick={() => {
-              this.handleArchiveNote(this.state.note.id);
-            }}
-          >
-            Arsipkan
-          </Button>
+          {this.state.note.archived ? (
+            <Button
+              buttonType="archive"
+              onClick={() => this.handleUnarchiveNote(this.state.note.id)}
+            >
+              Pindahkan
+            </Button>
+          ) : (
+            <Button
+              buttonType="archive"
+              onClick={() => {
+                this.handleArchiveNote(this.state.note.id);
+              }}
+            >
+              Arsipkan
+            </Button>
+          )}
+
           <Button
             buttonType="delete"
             onClick={() => this.handleDeleteNote(this.state.note.id)}
