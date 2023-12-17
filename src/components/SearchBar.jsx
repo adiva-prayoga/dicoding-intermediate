@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {};
+  handleSearch = (e) => {
+    const searcQuery = e.target.value;
+
+    this.props.handleSearch(searcQuery);
+  };
+
   render() {
     return (
       <section className="search-section">
-        <div className="container">
-          <input type="text" placeholder="Cari catatan..." />
-        </div>
+        <input
+          type="text"
+          placeholder="Cari catatan..."
+          onChange={this.handleSearch}
+        />
       </section>
     );
   }
