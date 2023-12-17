@@ -186,8 +186,7 @@ ul .empty-notes {
 
 button {
   font-family: "Plus Jakarta Sans", sans-serif !important;
-
-  width: 100%;
+  width: 25%;
   color: #fff;
   margin-top: 10px;
   padding: 15px 0px;
@@ -202,13 +201,16 @@ button {
 }
 
 .archive-button {
-  background-color: #247dff;
+  background-color: #00c8af;
 }
 
 .submit-button {
-  width: 25%;
   background-color: #247dff;
   cursor: pointer;
+}
+
+.default-button {
+  background-color: #247dff;
 }
 
 .form-section {
