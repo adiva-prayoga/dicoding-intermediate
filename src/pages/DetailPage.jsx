@@ -4,7 +4,7 @@ import { useParams, Navigate } from "react-router-dom";
 import NotFoundPage from "./NotFoundPage";
 import Button from "../components/Button";
 
-import { getNote, deleteNote } from "../utils/local-data";
+import { getNote, deleteNote, archiveNote } from "../utils/local-data";
 import { showFormattedDate } from "../utils/index";
 
 function DetailPageWrapper() {
@@ -23,8 +23,15 @@ class DetailPage extends Component {
     };
   }
 
+  handleArchiveNote = (noteId) => {
+    archiveNote(noteId);
+
+    this.setState({
+      redirectToHome: true,
+    });
+  };
+
   handleDeleteNote = (noteId) => {
-    console.log("test");
     deleteNote(noteId);
 
     this.setState({
@@ -48,7 +55,14 @@ class DetailPage extends Component {
           <p className="date">{showFormattedDate(this.state.note.createdAt)}</p>
           <p className="body">{this.state.note.body}</p>
 
-          <Button buttonType="archive">Arsipkan</Button>
+          <Button
+            buttonType="archive"
+            onClick={() => {
+              this.handleArchiveNote(this.state.note.id);
+            }}
+          >
+            Arsipkan
+          </Button>
           <Button
             buttonType="delete"
             onClick={() => this.handleDeleteNote(this.state.note.id)}
