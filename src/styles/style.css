@@ -102,6 +102,7 @@ textarea:focus {
 
 .notes-section .title,
 .archive-notes-section .title {
+  font-size: 48px;
   margin-bottom: 25px;
 }
 
@@ -260,7 +261,19 @@ button {
   line-height: 25px;
 }
 
+@media screen and (min-width: 960px) {
+  button {
+    margin-top: 25px;
+  }
+  button:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
 @media screen and (max-width: 960px) {
+  button {
+    width: 100%;
+  }
   .container {
     width: 100%;
     max-width: 100%;
@@ -272,10 +285,6 @@ button {
 }
 
 @media screen and (max-width: 600px) {
-  nav .logo {
-    display: none;
-  }
-
   header nav input {
     width: 100%;
   }

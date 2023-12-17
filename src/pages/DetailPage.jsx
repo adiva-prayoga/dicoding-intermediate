@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { useParams, Navigate } from "react-router-dom";
 
 import NotFoundPage from "./NotFoundPage";
 import Button from "../components/Button";
+
+import PropTypes from "prop-types";
+import { useParams, Navigate } from "react-router-dom";
 
 import {
   getNote,
@@ -25,6 +27,7 @@ class DetailPage extends Component {
     this.state = {
       note: getNote(props.id),
       redirectToHome: false,
+      redirectToArchive: false,
     };
   }
 
@@ -32,7 +35,7 @@ class DetailPage extends Component {
     unarchiveNote(noteId);
 
     this.setState({
-      redirectToHome: true,
+      redirectToArchive: true,
     });
   };
 
@@ -52,10 +55,14 @@ class DetailPage extends Component {
     });
   };
   render() {
-    const { redirectToHome } = this.state;
+    const { redirectToHome, redirectToArchive } = this.state;
 
     if (!this.state.note) {
       return <NotFoundPage />;
+    }
+
+    if (redirectToArchive) {
+      return <Navigate to="/archives" />;
     }
 
     if (redirectToHome) {
@@ -97,5 +104,9 @@ class DetailPage extends Component {
     );
   }
 }
+
+DetailPage.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default DetailPageWrapper;
