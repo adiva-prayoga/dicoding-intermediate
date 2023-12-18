@@ -3,10 +3,26 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 
 class SearchBar extends Component {
-  handleSearch = (e) => {
-    const searcQuery = e.target.value;
+  constructor(props) {
+    super(props);
 
-    this.props.handleSearch(searcQuery);
+    this.state = {
+      keyword: props.defaultKeyword || "",
+    };
+
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch = (e) => {
+    const { value } = e.target;
+
+    this.setState(() => {
+      return {
+        keyword: value,
+      };
+    });
+
+    this.props.handleSearch(value);
   };
 
   render() {
@@ -15,6 +31,7 @@ class SearchBar extends Component {
         <input
           type="text"
           placeholder="Cari catatan..."
+          value={this.state.keyword}
           onChange={this.handleSearch}
         />
       </section>
