@@ -111,6 +111,17 @@ function editNote({ id, title, body }) {
   });
 }
 
+function searchArchivedNotes(keyword) {
+  if (!keyword) {
+    return getArchivedNotes();
+  }
+
+  const lowerCaseKeyword = keyword.toLowerCase();
+  return getArchivedNotes().filter((note) =>
+    note.title.toLowerCase().includes(lowerCaseKeyword)
+  );
+}
+
 function searchNotes(keyword) {
   if (!keyword) {
     return notes;
@@ -133,4 +144,5 @@ export {
   unarchiveNote,
   addNote,
   searchNotes,
+  searchArchivedNotes,
 };
