@@ -5,45 +5,53 @@ import SearchBar from "../components/SearchBar";
 import Button from "../components/Button";
 
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
-import { getActiveNotes } from "../utils/local-data";
+import { getActiveNotes, searchNotes } from "../utils/local-data";
+
+function HomePageWrapper() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get("search");
+
+  const changeSearchParams = (keyword) => {
+    setSearchParams({ search: keyword });
+  };
+
+  return <HomePage handleSearch={changeSearchParams} activeKeyword={search} />;
+}
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
+    const { activeKeyword } = this.props;
     this.state = {
-      searchResult: "",
+      searchResult: searchNotes(activeKeyword),
       notes: getActiveNotes(),
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleSearch = (searchResult) => {
     this.setState({
-      searchResult,
+      searchResult: searchNotes(searchResult),
     });
-  };
 
-  filterNotes = (notes, searchResult) => {
-    if (!searchResult) {
-      return notes;
-    } else {
-      return notes.filter((note) =>
-        note.title.toLowerCase().includes(searchResult.toLowerCase())
-      );
-    }
+    this.props.handleSearch(searchResult);
   };
   render() {
-    const { notes, searchResult } = this.state;
+    const { searchResult } = this.state;
 
-    const filteredNotes = this.filterNotes(notes, searchResult);
     return (
       <section className="notes-section">
         <div className="container">
           <h1 className="title">HomePage</h1>
-          <SearchBar handleSearch={this.handleSearch} />
-          <NoteList notes={filteredNotes} />
+          <SearchBar
+            handleSearch={this.handleSearch}
+            defaultKeyword={this.props.activeKeyword}
+          />
+          <NoteList notes={searchResult} />
           <Link to="/notes/new">
             <Button buttonType="default">Create note</Button>
           </Link>
@@ -54,8 +62,12 @@ class HomePage extends Component {
 }
 
 HomePage.propTypes = {
-  notes: PropTypes.array,
-  searchResult: PropTypes.string,
+  handleSearch: PropTypes.func.isRequired,
+  activeKeyword: PropTypes.string.isRequired,
 };
 
-export default HomePage;
+HomePageWrapper.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
+};
+
+export default HomePageWrapper;
